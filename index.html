@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Dhrishit Seal — Software Engineer</title>
+  <meta name="description" content="Portfolio of Dhrishit Seal, a software engineer and MSc Computer Science student at University College Dublin, working across backend systems, full-stack apps and applied ML.">
+  
+  <!-- Tailwind CSS v3 with Plugins -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'Inter', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              black: '#0D0D0D',
+              dark: '#141414',
+              gray: '#7A7A7A',
+              light: '#F8F9FA',
+              border: '#E5E5E5'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Typography & Gradients Stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="FlexCarousel.css">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #FAFAFA;
+      color: #121212;
+      overflow-x: clip;
+      selection-background-color: #000;
+      selection-color: #fff;
+    }
+
+    ::selection {
+      background: #000;
+      color: #fff;
+    }
+
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+    /* ============================================================
+       EXPERIENCE HORIZONTAL SPATIAL CANVAS
+       ============================================================ */
+    #exp-horizontal-stage {
+      will-change: transform;
+      transform: translate3d(0, 0, 0);
+    }
+    .exp-panel {
+      will-change: transform, opacity;
+    }
+    .exp-date-bg {
+      will-change: transform;
+    }
+    @keyframes expLivingFlow {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    .exp-living-flow {
+      animation: expLivingFlow 4.5s ease-in-out infinite;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #experience {
+        height: auto !important;
+      }
+      #exp-sticky-viewport {
+        position: relative !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #exp-horizontal-stage {
+        flex-direction: column !important;
+        width: 100% !important;
+        transform: none !important;
+      }
+      .exp-panel {
+        width: 100% !important;
+        padding-top: 5rem !important;
+        padding-bottom: 5rem !important;
+      }
+      .exp-living-flow {
+        animation: none !important;
+      }
+    }
+
+    /* Pinned Experience panels can't scroll, so short screens get a tighter layout */
+    @media (max-height: 700px) {
+      .exp-panel h3 { margin-bottom: 0.75rem; }
+      .exp-panel p { margin-bottom: 0.75rem; }
+      .exp-panel .exp-milestones { gap: 0.625rem; padding-top: 0.75rem; margin-bottom: 0.75rem; }
+    }
+    /* Small portrait phones and all landscape phones: the full story button carries the detail */
+    @media (max-height: 700px) and (max-width: 640px), (max-height: 500px) {
+      .exp-panel .exp-milestones { display: none; }
+    }
+    @media (max-height: 500px) {
+      .exp-panel h3 + p { display: none; }
+      .exp-panel h2, .exp-panel h3 { font-size: 2.25rem; margin-bottom: 0.5rem; }
+      .exp-panel h2 br, .exp-panel h3 br { display: none; }
+      .exp-panel p { font-size: 0.875rem; line-height: 1.35; }
+    }
+
+    #project-modal {
+      transition: opacity 380ms cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 380ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #project-modal-card {
+      transition: transform 440ms cubic-bezier(0.16, 1, 0.3, 1), opacity 360ms cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+      transform: translate3d(0, 0, 0);
+    }
+
+    /* ============================================================
+       EDITORIAL HERO TITLE
+       ============================================================ */
+    /* Metallic gradient for lower text ("PORTFOLIO") only */
+    .metallic-title {
+      display: inline-block;
+      background: linear-gradient(180deg, #1A1A1A 0%, #4A4A4A 35%, #8E8E8E 60%, #BDBDBD 85%, #E5E5E5 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Portrait gradient mask so bottom of person fades cleanly into background */
+    .hero-portrait-mask {
+      mask-image: linear-gradient(black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(black 65%, transparent 100%);
+    }
+
+    .footer-metallic-title {
+      background: linear-gradient(180deg, #FFFFFF 0%, #a8a8a8 50%, #444444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: filter 0.3s ease;
+    }
+    .footer-metallic-title:hover {
+      filter: brightness(1.2);
+    }
+
+    .letter-spacing-widest {
+      letter-spacing: 0.18em;
+    }
+
+    .pill-btn {
+      border: 1px solid #D6D6D6;
+      border-radius: 9999px;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .pill-btn:hover {
+      border-color: #000000;
+      transform: translateY(-1px);
+    }
+
+    .circle-btn {
+      border: 1px solid #D1D1D1;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, background-color 0.25s ease;
+    }
+    .circle-btn:hover {
+      border-color: #000;
+      transform: scale(1.08);
+      background-color: #f0f0f0;
+    }
+
+    /* Hero portrait mask */
+    .hero-portrait-mask {
+      mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 100%);
+    }
+
+    /* Accordion transition styles */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0;
+    }
+    .accordion-item.active .accordion-content {
+      max-height: 250px;
+      opacity: 1;
+      margin-top: 1rem;
+    }
+
+    /* Toast animation */
+    .toast-enter {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    .toast-active {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ============================================================
+       PAGE MOTION (driven by motion.js)
+       ============================================================ */
+    .split-mask {
+      display: inline-block;
+      overflow: hidden;
+      vertical-align: bottom;
+      padding: 0.08em 0.02em 0.1em;
+      margin: -0.08em -0.02em -0.1em;
+    }
+    .split-char {
+      display: inline-block;
+      transform: translateY(115%);
+      transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+      transition-delay: calc(var(--i) * 28ms);
+    }
+    .is-in .split-char {
+      transform: none;
+    }
+    .clip-reveal {
+      clip-path: inset(14% 10% round 28px);
+      transition: clip-path 1200ms cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .clip-reveal.is-in {
+      clip-path: inset(0 round 24px);
+    }
+
+    .scrub-word {
+      color: #C9C9C9;
+      transition: color 260ms linear;
+    }
+    .scrub-word.is-lit {
+      color: #121212;
+    }
+
+    #tech-marquee > div {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+    }
+    #tech-marquee span {
+      padding-right: 0.7em;
+      font-size: clamp(3rem, 9vw, 8rem);
+      font-weight: 900;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      color: transparent;
+      -webkit-text-stroke: 1.5px #121212;
+    }
+    #tech-marquee span:nth-child(even) {
+      color: #121212;
+    }
+
+    .magnetic {
+      transition: transform 260ms cubic-bezier(0.16, 1, 0.3, 1), background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+    }
+
+    .follow-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 70;
+      width: 12px;
+      height: 12px;
+      display: grid;
+      place-items: center;
+      border-radius: 9999px;
+      background: #fff;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      mix-blend-mode: difference;
+      pointer-events: none;
+      opacity: 0;
+      transition: width 240ms cubic-bezier(0.16, 1, 0.3, 1), height 240ms cubic-bezier(0.16, 1, 0.3, 1), opacity 200ms ease, background-color 200ms ease;
+    }
+    .follow-cursor.is-on {
+      opacity: 1;
+    }
+    .follow-cursor.is-hit {
+      width: 44px;
+      height: 44px;
+    }
+    .follow-cursor.is-drag {
+      width: 76px;
+      height: 76px;
+      background: #000;
+      mix-blend-mode: normal;
+    }
+
+    #scroll-progress {
+      display: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Hidden until the letters are split; shows anyway if motion.js fails to load */
+      #hero-title {
+        visibility: hidden;
+        animation: heroShowFallback 0s 1.5s forwards;
+      }
+      #hero-title.ready {
+        visibility: visible;
+        animation: none;
+      }
+      #hero-portrait {
+        animation: portraitRise 1400ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
+      }
+
+      @supports (animation-timeline: scroll()) {
+        #scroll-progress {
+          display: block;
+          position: fixed;
+          inset: 0 0 auto 0;
+          z-index: 60;
+          height: 3px;
+          background: #fff;
+          mix-blend-mode: difference;
+          transform-origin: left;
+          animation: progressGrow linear both;
+          animation-timeline: scroll(root);
+        }
+        /* The name sinks behind the portrait as the page scrolls away */
+        #hero-title-wrap {
+          animation: nameSink linear both;
+          animation-timeline: scroll(root);
+          animation-range: 0 85vh;
+        }
+        #hero-portrait-col {
+          animation: portraitLift linear both;
+          animation-timeline: scroll(root);
+          animation-range: 0 85vh;
+        }
+      }
+    }
+
+    @keyframes heroShowFallback {
+      to { visibility: visible; }
+    }
+    @keyframes portraitRise {
+      from { clip-path: inset(100% 0 0 0); transform: translateY(60px) scale(1.06); }
+      to { clip-path: inset(0); transform: none; }
+    }
+    @keyframes progressGrow {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(1); }
+    }
+    @keyframes nameSink {
+      to { transform: translateY(26vh) scale(0.92); opacity: 0.25; }
+    }
+    @keyframes portraitLift {
+      to { transform: translateY(-5vh) scale(1.05); }
+    }
+  </style>
+</head>
+<body class="antialiased text-[#111] bg-[#FAFAFA]">
+
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <!-- Notification Toast Container -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- BEGIN: Navigation Header -->
+  <header class="relative z-40 bg-[#FAFAFA] transition-all duration-300 w-full pt-6 pb-4 px-6 md:px-14 max-w-[1400px] mx-auto flex items-center justify-between" data-purpose="site-navigation">
+    <!-- Brand Wordmark -->
+    <a class="group font-extrabold text-xl tracking-tight text-black flex items-center" href="#home">
+      <span>DHRISHIT</span>
+      <span class="inline-block w-2 h-2 bg-black rounded-full ml-1 transition-transform group-hover:scale-150 duration-200"></span>
+    </a>
+
+    <!-- Center Navigation Links (Pill with no unwanted wrapping) -->
+    <nav class="hidden lg:flex items-center gap-1 p-1 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm text-xs font-semibold tracking-wider text-neutral-600">
+      <a id="nav-home" class="nav-link px-4 py-2 rounded-full border border-neutral-300 text-black hover:border-black transition whitespace-nowrap" href="#home">HOME</a>
+      <a id="nav-about" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#about">ABOUT ME</a>
+      <a id="nav-experience" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#experience">EXPERIENCE</a>
+      <a id="nav-projects" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#projects">PROJECTS</a>
+      <a id="nav-research" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#research">RESEARCH</a>
+      <a id="nav-skills" class="nav-link px-4 py-2 rounded-full border border-transparent hover:border-neutral-200 hover:text-black transition whitespace-nowrap" href="#skills">SKILLS</a>
+    </nav>
+
+    <!-- Right Social & Menu Links -->
+    <div class="flex items-center gap-1.5 md:gap-2 p-1.5 bg-white/95 border border-[#E2E2E2] rounded-full shadow-sm">
+      <!-- Email -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="mailto:sealdhrishit@gmail.com" title="Email">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect height="16" rx="2" width="20" x="2" y="4"></rect><path d="M22 7l-10 7L2 7"></path></svg>
+      </a>
+
+      <!-- LinkedIn -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://www.linkedin.com/in/dhrishit-seal-b5a959251/" target="_blank" rel="noopener" title="LinkedIn">
+        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+      </a>
+
+      <!-- GitHub -->
+      <a class="w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 hover:text-black" href="https://github.com/Dhrishit04" target="_blank" rel="noopener" title="GitHub">
+        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Open Menu" class="lg:hidden w-8 h-8 rounded-full flex items-center justify-center hover:bg-neutral-100 transition text-neutral-700 ml-1">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="4" x2="20" y1="7" y2="7"></line><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="17" y2="17"></line></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer Menu -->
+  <div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 flex justify-end">
+    <div id="mobile-drawer-content" class="w-4/5 max-w-sm bg-white h-full p-8 flex flex-col justify-between transform translate-x-full transition-transform duration-300 shadow-2xl">
+      <div>
+        <div class="flex items-center justify-between pb-6 border-b border-neutral-200">
+          <span class="font-extrabold text-lg tracking-tight">DHRISHIT•</span>
+          <button onclick="toggleMobileMenu()" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-700 hover:border-black">
+            ✕
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 mt-8 text-base font-bold tracking-wider">
+          <a onclick="toggleMobileMenu()" href="#home" class="py-2 border-b border-neutral-100 hover:text-neutral-500">HOME</a>
+          <a onclick="toggleMobileMenu()" href="#about" class="py-2 border-b border-neutral-100 hover:text-neutral-500">ABOUT ME</a>
+          <a onclick="toggleMobileMenu()" href="#experience" class="py-2 border-b border-neutral-100 hover:text-neutral-500">EXPERIENCE</a>
+          <a onclick="toggleMobileMenu()" href="#projects" class="py-2 border-b border-neutral-100 hover:text-neutral-500">PROJECTS</a>
+          <a onclick="toggleMobileMenu()" href="#research" class="py-2 border-b border-neutral-100 hover:text-neutral-500">RESEARCH</a>
+          <a onclick="toggleMobileMenu()" href="#skills" class="py-2 border-b border-neutral-100 hover:text-neutral-500">SKILLS</a>
+          <a onclick="toggleMobileMenu(); openContactModal();" href="javascript:void(0)" class="py-2 text-black hover:underline">CONTACT</a>
+        </nav>
+      </div>
+      <div class="pt-6 border-t border-neutral-200">
+        <p class="text-xs uppercase tracking-widest text-neutral-400 mb-3">DHRISHIT SEAL</p>
+        <p class="text-xs text-neutral-600">Software Engineer • Dublin, Ireland</p>
+      </div>
+    </div>
+  </div>
+  <!-- END: Navigation -->
+
+  <!-- BEGIN: Hero Section -->
+  <main class="relative max-w-[1400px] mx-auto px-6 md:px-14 pt-6 md:pt-12 pb-20 overflow-hidden" data-purpose="hero-section" id="home">
+    <!-- Big Title Header -->
+    <div id="hero-title-wrap" class="text-center w-full mb-6 md:mb-10 relative z-0 select-none">
+      <h1 id="hero-title" class="text-[9.5vw] md:text-[8rem] lg:text-[9.5rem] font-extrabold uppercase leading-[0.85] tracking-tight">
+        <span class="block">
+          <span class="text-[#121212]">DHRISHIT</span>
+        </span>
+        <span class="block">
+          <span class="metallic-title">SEAL</span>
+        </span>
+      </h1>
+    </div>
+
+    <!-- Center Headshot & Symmetrical Content Grid -->
+    <div class="relative grid grid-cols-1 md:grid-cols-12 items-center mt-2 md:-mt-6">
+      
+      <!-- Left Column: Designer info & Arrow -->
+      <div class="md:col-span-3 flex flex-col items-start md:items-start pl-2 md:pl-6 order-2 md:order-1 pt-6 md:pt-0">
+        <span class="text-xs font-bold tracking-wider uppercase text-neutral-800 mb-6">SOFTWARE ENGINEER</span>
+        <a class="circle-btn w-14 h-14 md:w-16 md:h-16 border-neutral-300" href="#about" aria-label="Scroll to About Section">
+          <svg class="w-5 h-5 text-neutral-800 transform rotate-45" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Center Column: Stylized Black and White Headshot (in front of text) -->
+      <div id="hero-portrait-col" class="md:col-span-6 flex justify-center order-1 md:order-2 relative z-10 -mt-6 md:-mt-12">
+        <div id="hero-portrait" class="relative w-[320px] h-[400px] md:w-[480px] md:h-[580px] flex items-end justify-center hero-portrait-mask">
+          <img src="assets/hero_portrait.png" 
+               alt="Dhrishit Seal" 
+               class="w-full h-full object-contain object-bottom pointer-events-none select-none transition-transform duration-700 hover:scale-[1.02]">
+        </div>
+      </div>
+
+      <!-- Right Column: Pitch and Disciplines -->
+      <div class="md:col-span-3 flex flex-col items-start md:items-end text-left order-3 pt-6 md:pt-0 pr-2 md:pr-6 space-y-10">
+        <!-- Pitch Quote -->
+        <p class="text-[11px] md:text-xs uppercase font-medium leading-relaxed tracking-wider text-neutral-700 max-w-[220px] text-left">
+          I BUILD DEPENDABLE SOFTWARE, FROM FINANCIAL DATA PIPELINES TO DESKTOP AI AGENTS.
+        </p>
+
+        <!-- Service List with hover interaction -->
+        <div class="flex flex-col space-y-3 text-[11px] md:text-xs font-semibold tracking-widest text-neutral-600 uppercase">
+          <a href="#skills" onclick="selectService(0)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+            <span>BACKEND</span>
+          </a>
+          <a href="#skills" onclick="selectService(1)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5">
+            <span>FULL STACK</span>
+          </a>
+          <a href="#skills" onclick="selectService(2)" class="hover:text-black hover:translate-x-1 md:hover:-translate-x-1 transition-all inline-flex items-center gap-1.5 font-bold text-black">
+            <span>APPLIED ML</span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+  <!-- END: Hero Section -->
+
+  <!-- BEGIN: About Section (ScrollExpandMedia Component) -->
+  <section class="relative w-full bg-[#0D0D0D] text-white" id="about" style="min-height: 200vh;">
+    <div class="sticky top-0 w-full h-[100dvh] overflow-hidden flex flex-col items-center justify-start z-10">
+      <!-- Background Ambient with dynamic opacity: 1 - scrollProgress (Previous Starry Night Castle Background) -->
+      <div id="sem-bg-img" class="absolute inset-0 z-0 h-full w-full pointer-events-none transition-opacity duration-150 ease-out" style="will-change: opacity; transform: translateZ(0);">
+        <img
+          src="assets/about_starry_castle_hq.jpg?v=10"
+          alt="Monochrome Starry Night Castle Background"
+          class="w-full h-full object-cover object-center"
+        />
+        <div class="absolute inset-0 bg-black/25"></div>
+      </div>
+
+      <!-- Centered Interactive Stage Container (Exact from React Component) -->
+      <div class="container mx-auto flex flex-col items-center justify-start relative z-10 w-full h-full">
+        <div class="flex flex-col items-center justify-center w-full h-[100dvh] relative">
+          
+          <!-- Expanding Media Card (Closed state: 300px x 400px, expands on scroll) -->
+          <div
+            id="sem-media-container"
+            class="absolute z-0 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-2xl overflow-hidden shadow-2xl transition-none bg-[#07090E]"
+            style="width: 300px; height: 400px; max-width: 95vw; max-height: 85vh; box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9); border: 1px solid rgba(255,255,255,0.35); will-change: width, height; backface-visibility: hidden;"
+          >
+            <!-- Media Image Container: fits 100% of the box without any letterboxing or cropping -->
+            <div class="relative w-full h-full overflow-hidden rounded-xl flex items-center justify-center bg-[#07090E]">
+              <!-- Crisp Base Image (GPU accelerated) -->
+              <img
+                id="sem-media-img"
+                src="assets/about_portrait.jpg"
+                alt="Dhrishit Seal in front of the Burj Khalifa at night"
+                class="w-full h-full object-cover rounded-xl transition-none"
+                style="transform: scale(1.02) translateZ(0); transform-origin: center; backface-visibility: hidden;"
+              />
+              <!-- Pre-blurred Layer for 120 FPS GPU-accelerated Unblur (fades out opacity smoothly on scroll) -->
+              <img
+                id="sem-media-blur"
+                src="assets/about_portrait.jpg"
+                alt=""
+                aria-hidden="true"
+                class="absolute inset-0 w-full h-full object-cover rounded-xl transition-none pointer-events-none"
+                style="filter: blur(18px); transform: scale(1.08) translateZ(0); transform-origin: center; opacity: 1; will-change: opacity; backface-visibility: hidden;"
+              />
+              <!-- Subtle Gradient Overlay: protects top/bottom legibility while keeping the center 100% transparent -->
+              <div id="sem-media-overlay" class="absolute inset-0 bg-gradient-to-b from-black/75 via-transparent to-black/85 rounded-xl transition-opacity duration-150 pointer-events-none"></div>
+
+              <!-- Minimal Aesthetic About Info - Perimeter Layout with Empty Center -->
+              <div
+                id="sem-media-content"
+                class="absolute inset-0 z-20 flex flex-col justify-between p-5 sm:p-7 md:p-9 pointer-events-none opacity-0 transition-all duration-300 select-none"
+              >
+                <!-- Top Perimeter: Refined Monochrome Headline -->
+                <div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-3">
+                  <h3 class="text-xs sm:text-sm md:text-base font-extrabold uppercase tracking-tight text-white max-w-xl">
+                    SOFTWARE ENGINEER, MSC STUDENT AT UNIVERSITY COLLEGE DUBLIN
+                  </h3>
+                  <span class="text-[10px] font-mono tracking-wider uppercase text-neutral-400 shrink-0">
+                    BASED IN DUBLIN, IRELAND
+                  </span>
+                </div>
+
+                <!-- Center Zone: COMPLETELY OPEN & EMPTY - 100% unobscured view of artwork -->
+                <div class="flex-1 pointer-events-none"></div>
+
+                <!-- Bottom Perimeter: Disciplines, About Summary & Monochrome CTAs -->
+                <div class="pt-3 border-t border-white/10 flex flex-col md:flex-row md:items-end justify-between gap-4">
+                  <!-- About Me Summary & Disciplines -->
+                  <div class="max-w-xl space-y-2">
+                    <div class="flex items-center gap-2.5">
+                      <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-300">FOCUS</span>
+                      <div class="h-px bg-white/15 w-6"></div>
+                      <span class="text-[10px] font-mono tracking-widest uppercase text-neutral-400">BACKEND &bull; FULL STACK &bull; APPLIED ML</span>
+                    </div>
+                    <p class="text-xs sm:text-[12px] font-medium leading-relaxed tracking-wider uppercase text-neutral-300">
+                      CS GRADUATE FROM VIT BHOPAL (HEALTH INFORMATICS, CGPA 8.25/10), NOW ON THE MSC IN COMPUTER SCIENCE AT UCD. I HAVE SHIPPED BACKEND SYSTEMS AT NOMURA, BUILT SIGNAL TOOLING AT RELIANCE, AND PUBLISHED RESEARCH ON MEDICAL IMAGING.
+                    </p>
+                  </div>
+
+                  <!-- Monochrome Action Buttons -->
+                  <div class="flex items-center gap-3 shrink-0 pt-1 md:pt-0">
+                    <a href="javascript:void(0)" onclick="openContactModal()" class="pointer-events-auto px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition-all duration-200 inline-flex items-center gap-2">
+                      <span>GET IN TOUCH</span>
+                      <svg class="w-3.5 h-3.5 text-black" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round"></path>
+                      </svg>
+                    </a>
+                    <a href="assets/Dhrishit_Seal_CV.pdf" target="_blank" rel="noopener" class="pointer-events-auto px-5 py-2.5 rounded-full border border-neutral-500 hover:border-white text-white text-xs font-bold tracking-wider uppercase transition-all duration-200">
+                      RESUME
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Subtitles (Translate Outward) -->
+            <div class="flex flex-col items-center text-center relative z-10 mt-4 pointer-events-none">
+              <p id="sem-date" class="text-xl md:text-2xl text-neutral-300 font-semibold tracking-wider uppercase transition-none drop-shadow">
+                BACKGROUND
+              </p>
+              <p id="sem-scroll-prompt" class="text-neutral-400 font-medium text-xs tracking-widest uppercase transition-none mt-1 drop-shadow">
+                SCROLL TO EXPAND
+              </p>
+            </div>
+          </div>
+
+          <!-- Splitting Title Header (ABOUT translates left, ME translates right) -->
+          <div class="flex items-center justify-center text-center gap-2 sm:gap-4 w-full relative z-10 pointer-events-none flex-col" style="will-change: transform; backface-visibility: hidden;">
+            <h2 id="sem-title-first" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight transition-none drop-shadow-2xl" style="will-change: transform, opacity;">
+              ABOUT
+            </h2>
+            <h2 id="sem-title-rest" class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black text-white uppercase tracking-tight transition-none drop-shadow-2xl" style="will-change: transform, opacity;">
+              ME
+            </h2>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- END: About Section (ScrollExpandMedia Component) -->
+
+  <!-- BEGIN: Experience Section ("Where I've Been" — Horizontal Cinematic Installation) -->
+  <section
+    class="relative w-full bg-[#070709] text-white overflow-visible"
+    data-purpose="experience-section"
+    id="experience"
+    style="height: 280vh;"
+    string="progress"
+    string-id="experience-journey"
+  >
+    <!-- Sticky 100vh Theater / Viewport Window -->
+    <div
+      id="exp-sticky-viewport"
+      class="sticky top-0 w-full h-[100dvh] overflow-hidden bg-[#070709] flex flex-col justify-between select-none"
+    >
+      <!-- Layer 0: Background Cinematic Ambience & Atmospheric Grid -->
+      <div class="absolute inset-0 pointer-events-none opacity-20">
+        <div class="absolute inset-0" style="background-image: radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px); background-size: 40px 40px;"></div>
+      </div>
+
+      <!-- Layer 0B: Massive Ambient Horizontal Running Tickers (Layered Depth) -->
+      <div class="absolute inset-0 flex flex-col justify-around pointer-events-none overflow-hidden opacity-[0.035]">
+        <!-- Upper Ticker (Drifting Left) -->
+        <div id="exp-ticker-top" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
+          SOFTWARE ENGINEERING &nbsp;&nbsp; BACKEND SYSTEMS &nbsp;&nbsp; SOFTWARE ENGINEERING &nbsp;&nbsp; BACKEND SYSTEMS &nbsp;&nbsp;
+        </div>
+        <!-- Lower Ticker (Drifting Right) -->
+        <div id="exp-ticker-bottom" class="whitespace-nowrap font-black uppercase text-[14vw] tracking-tighter will-change-transform leading-none">
+          2024 &nbsp;&nbsp; RELIANCE INDUSTRIES &nbsp;&nbsp; 2025 &nbsp;&nbsp; NOMURA &nbsp;&nbsp; 2024 &nbsp;&nbsp; RELIANCE INDUSTRIES &nbsp;&nbsp;
+        </div>
+      </div>
+
+      <!-- Top Minimalist Editorial HUD Bar -->
+      <header class="relative z-30 w-full px-6 md:px-14 pt-6 pb-4 flex items-center justify-between border-b border-white/[0.08] backdrop-blur-md bg-[#070709]/80">
+        <div class="flex items-center gap-4">
+          <span id="exp-hud-phase" class="text-[11px] font-semibold tracking-widest uppercase text-neutral-400">
+            FOUNDATION
+          </span>
+        </div>
+
+        <!-- Progress Tracker Bar (Top Hairline) -->
+        <div class="flex items-center gap-3">
+          <div class="w-24 sm:w-36 h-[2px] bg-white/10 rounded-full overflow-hidden">
+            <div id="exp-hud-progress" class="h-full bg-white transition-all duration-75 w-0"></div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Center: Massive Horizontal Spatial Canvas (Controlled by Vertical Scroll) -->
+      <div class="relative z-20 flex-1 w-full overflow-hidden flex items-center">
+        <div
+          id="exp-horizontal-stage"
+          class="flex items-center h-full will-change-transform transition-none"
+          style="width: 290vw;"
+        >
+          <!-- ================= INTRO ENVIRONMENT (0vw - 90vw) ================= -->
+          <div class="exp-panel flex-shrink-0 w-[95vw] md:w-[85vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <div class="max-w-3xl">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/15 bg-white/[0.04] text-[10px] font-semibold tracking-widest uppercase text-neutral-300 mb-6">
+                <span>INTERNSHIPS</span>
+              </div>
+              <h2 class="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black uppercase tracking-tight text-white leading-[0.88] mb-8">
+                WHERE <br>I'VE BEEN
+              </h2>
+              <p class="text-base sm:text-lg md:text-xl text-neutral-300 leading-relaxed max-w-xl font-normal">
+                Two engineering internships, one in heavy industry and one in global finance.
+              </p>
+            </div>
+          </div>
+
+          <!-- ================= CHAPTER 01: RELIANCE ================= -->
+          <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <!-- Background Parallax Date Typography -->
+            <div
+              class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
+              data-parallax-factor="0.15"
+            >
+              2024
+            </div>
+
+            <div class="relative z-10 max-w-4xl">
+              <!-- Eyebrow & Date -->
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
+                  OCT 2024 — JAN 2025
+                </span>
+                <span class="h-[1px] w-12 bg-white/20"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-white">
+                  RELIANCE INDUSTRIES • NAVI MUMBAI
+                </span>
+              </div>
+
+              <!-- Oversized Typographic Role Title -->
+              <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
+                SDE <br>INTERN
+              </h3>
+
+              <!-- Narrative Summary -->
+              <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
+                Signal processing for valve stiction detection in industrial process control, using Dynamic Slow Feature Analysis and the Hurst exponent.
+              </p>
+
+              <!-- Milestone Specifications (Hairline Grid) -->
+              <div class="exp-milestones grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-6">
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">DATA</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Worked on 18 months of OP/PV logs, about 390K samples at 2-minute intervals</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">VALIDATION</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Tested robustness to noise through numerical simulations</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">TOOLING</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Wrote a reusable Python script for daily data streams at the Jamnagar plant</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <button type="button" onclick="openProjectModal('reliance')" class="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition">READ THE FULL STORY</button>
+                <a href="https://drive.google.com/file/d/1vloW7jAe-W6EUpPGPiOAFrepfadoj_2z/view?usp=sharing" target="_blank" rel="noopener" class="text-[11px] font-bold tracking-widest uppercase text-neutral-300 underline hover:text-white">VIEW CERTIFICATE ↗</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- ================= CHAPTER 02: NOMURA ================= -->
+          <div class="exp-panel relative flex-shrink-0 w-[105vw] md:w-[100vw] px-8 md:px-16 lg:px-24 flex flex-col justify-center">
+            <!-- Background Parallax Date Typography -->
+            <div
+              class="exp-date-bg absolute -top-8 right-12 md:right-28 text-[12vw] md:text-[14vw] font-black uppercase text-white/[0.04] tracking-tighter select-none pointer-events-none will-change-transform"
+              data-parallax-factor="0.15"
+            >
+              2025
+            </div>
+
+            <div class="relative z-10 max-w-4xl">
+              <!-- Eyebrow & Date -->
+              <div class="flex items-center gap-4 mb-4">
+                <span class="text-xs font-semibold tracking-widest uppercase text-neutral-400">
+                  AUG 2025 — JAN 2026
+                </span>
+                <span class="h-[1px] w-12 bg-white/20"></span>
+                <span class="text-xs font-bold tracking-widest uppercase text-white">
+                  NOMURA SERVICES INDIA • MUMBAI
+                </span>
+              </div>
+
+              <!-- Oversized Typographic Role Title -->
+              <h3 class="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tight text-white leading-[0.92] mb-6">
+                SDE <br>INTERN
+              </h3>
+
+              <!-- Narrative Summary -->
+              <p class="text-sm sm:text-base md:text-lg text-neutral-300 leading-relaxed max-w-2xl mb-8">
+                Backend work on two internal finance applications: automating monthly financial data loading, and adding role-based access to the budgeting application.
+              </p>
+
+              <!-- Milestone Specifications (Hairline Grid) -->
+              <div class="exp-milestones grid grid-cols-1 sm:grid-cols-3 gap-6 pt-6 border-t border-white/10 max-w-3xl mb-6">
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">AUTOMATION</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Replaced a manual Excel-to-DB load with a Spring Boot microservice handling 150K–200K records a month</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">ACCESS CONTROL</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Moved a static menu to a DB-driven one and implemented RBAC across 11 roles</div>
+                </div>
+                <div>
+                  <div class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest mb-1.5">DELIVERY</div>
+                  <div class="text-xs sm:text-sm text-neutral-200 font-medium leading-snug">Jenkins deployment to UAT, Autosys scheduling, failure and anomaly emails, JUnit and Mockito tests</div>
+                </div>
+              </div>
+              <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+                <button type="button" onclick="openProjectModal('nomura')" class="px-5 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-[11px] font-bold tracking-widest uppercase whitespace-nowrap transition">READ THE FULL STORY</button>
+                <a href="https://drive.google.com/file/d/1vpBrfY5c-H7POurO1ff2_bK8Hi77itBU/view?usp=sharing" target="_blank" rel="noopener" class="text-[11px] font-bold tracking-widest uppercase text-neutral-300 underline hover:text-white">VIEW CERTIFICATE ↗</a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom Minimalist Editorial Navigation & Spatial Status Bar -->
+      <footer class="relative z-30 w-full px-6 md:px-14 py-4 flex items-center justify-between border-t border-white/[0.08] backdrop-blur-md bg-[#070709]/80">
+        <!-- Interactive Navigation Markers -->
+        <div class="flex items-center gap-2 sm:gap-4">
+          <button
+            type="button"
+            class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/5 text-neutral-500 hover:text-white transition-all hover:border-white/20"
+            data-target-progress="0.30"
+          >
+            RELIANCE
+          </button>
+          <button
+            type="button"
+            class="exp-jump-btn text-[11px] font-bold tracking-widest uppercase px-3 py-1 rounded-md border border-white/5 text-neutral-500 hover:text-white transition-all hover:border-white/20"
+            data-target-progress="0.75"
+          >
+            NOMURA
+          </button>
+        </div>
+      </footer>
+    </div>
+  </section>
+  <!-- END: Experience Section -->
+
+  <!-- BEGIN: Featured Project Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="featured-projects" id="projects">
+    <!-- Header -->
+    <div class="mb-8">
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
+        FEATURED PROJECTS
+      </h2>
+    </div>
+
+    <!-- Dynamic Projects Content Area with FlexCarousel -->
+    <div id="projects-content" class="w-full">
+      <div id="flex-carousel-container" class="rounded-3xl border border-neutral-200 bg-[#EFEFEF] overflow-hidden shadow-inner" style="width: 100%; height: 560px; position: relative;">
+        <!-- FlexCarousel mounts here -->
+      </div>
+    </div>
+  </section>
+  <!-- END: Featured Project Section -->
+
+  <!-- BEGIN: Research (WorksWheel) Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-16" data-purpose="research" id="research">
+    <!-- Header with Title -->
+    <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div>
+        <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900">
+          RESEARCH
+        </h2>
+      </div>
+    </div>
+
+    <!-- WorksWheel 3D Container -->
+    <div class="w-full relative overflow-hidden" style="height: 640px; min-height: 520px;">
+      <div id="works-wheel-container" class="w-full h-full relative">
+        <!-- WorksWheel mounts here -->
+      </div>
+    </div>
+  </section>
+  <!-- END: Research Section -->
+
+  <!-- Tech ribbon: drifts on its own, reacts to scroll speed and direction -->
+  <div id="tech-marquee" class="w-full overflow-hidden py-6 md:py-10" aria-hidden="true">
+    <div><span>Java</span><span>Spring Boot</span><span>Python</span><span>TypeScript</span><span>React</span><span>Next.js</span><span>PostgreSQL</span><span>Docker</span><span>Kubernetes</span><span>PyTorch</span></div>
+  </div>
+
+  <!-- BEGIN: Skills Section -->
+  <section class="max-w-[1400px] mx-auto px-6 md:px-14 py-20" data-purpose="skills-section" id="skills">
+    <!-- Centered Header -->
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-neutral-900 mb-4">
+        WHAT I WORK WITH
+      </h2>
+      <p id="skills-statement" class="text-2xl md:text-4xl font-bold leading-snug tracking-tight text-neutral-900">
+        Java and Python at the core, with the tooling to take work from a local branch to a running service.
+      </p>
+    </div>
+
+    <!-- Skill Pill Rows Accordion -->
+    <div class="max-w-4xl mx-auto flex flex-col space-y-3.5">
+
+      <div id="service-0" onclick="toggleService(0)" class="accordion-item active w-full flex flex-col px-6 py-4 rounded-3xl bg-black text-white shadow-xl cursor-pointer transition-all transform scale-[1.01]">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300">1</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white">BACKEND</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-180">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-300 leading-relaxed max-w-2xl mb-4">REST APIs, microservices and batch jobs, with most of my production work in Spring Boot.</p>
+          <div class="border-t border-neutral-800 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">JAVA, PYTHON, SQL, SPRING BOOT, NODE.JS, EXPRESS.JS, FLASK</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="service-1" onclick="toggleService(1)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">2</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">FRONTEND</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">Typed React interfaces, from real-time public sites to admin panels.</p>
+          <div class="border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">JAVASCRIPT, TYPESCRIPT, REACT, NEXT.JS, TAILWIND CSS</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="service-2" onclick="toggleService(2)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">3</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">DATA & ML</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">Data preparation and model work for signal processing, medical imaging and explainability.</p>
+          <div class="border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">NUMPY, PANDAS, SCIKIT-LEARN</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="service-3" onclick="toggleService(3)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">4</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">DATABASES</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">Relational and document stores, including careful incremental loads into live tables.</p>
+          <div class="border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">MYSQL, POSTGRESQL, SQL SERVER, SQLITE, MONGODB, FIREBASE FIRESTORE</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="service-4" onclick="toggleService(4)" class="accordion-item w-full flex flex-col px-6 py-4 rounded-3xl border border-neutral-300 bg-white hover:border-black transition-all cursor-pointer">
+        <div class="flex items-center justify-between">
+          <span class="item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700">5</span>
+          <span class="item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800">DEVOPS & PRACTICES</span>
+          <div class="item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform">
+            <svg class="w-3.5 h-3.5 text-neutral-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+          </div>
+        </div>
+        <div class="accordion-content">
+          <p class="text-xs text-neutral-500 leading-relaxed max-w-2xl mb-4">CI/CD, job scheduling, testing and Agile delivery.</p>
+          <div class="border-t border-neutral-200 pt-3">
+            <span class="text-[11px] font-mono text-neutral-400">GIT, GITLAB, JENKINS, AUTOSYS, DOCKER, KUBERNETES, SONARQUBE, POSTMAN, JUNIT, MOCKITO</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  <!-- END: Skills Section -->
+
+  <!-- BEGIN: Contact / Let's Talk Footer -->
+  <footer class="w-full bg-[#0D0D0D] text-white pt-20 pb-12 mt-12" data-purpose="footer-section" id="contact">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-14 flex flex-col items-center">
+      
+      <!-- Metallic Callout Headline -->
+      <div class="w-full text-center py-6 md:py-10">
+        <h2 class="text-[12vw] md:text-[8rem] lg:text-[10rem] font-black uppercase leading-none tracking-tight footer-metallic-title select-none cursor-pointer" onclick="openContactModal()">
+          LET'S TALK
+        </h2>
+      </div>
+
+      <!-- Action Button Pills -->
+      <div class="flex flex-wrap items-center justify-center gap-3.5 mt-8 mb-20">
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="assets/Dhrishit_Seal_CV.pdf" target="_blank" rel="noopener">
+          RESUME
+        </a>
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://www.linkedin.com/in/dhrishit-seal-b5a959251/" target="_blank" rel="noopener">
+          LINKEDIN
+        </a>
+        <a class="px-6 py-2.5 rounded-full border border-neutral-700 hover:border-neutral-400 text-xs font-medium tracking-wider uppercase transition text-neutral-300 hover:text-white" href="https://github.com/Dhrishit04" target="_blank" rel="noopener">
+          GITHUB
+        </a>
+        <button onclick="openContactModal()" class="px-7 py-2.5 rounded-full bg-white text-black hover:bg-neutral-200 text-xs font-bold tracking-wider uppercase transition transform hover:scale-105">
+          CONTACT ME
+        </button>
+      </div>
+
+      <!-- Bottom Credits Bar -->
+      <div class="w-full pt-8 border-t border-neutral-900 flex flex-col md:flex-row items-center justify-between text-[10px] tracking-widest uppercase text-neutral-600 font-semibold gap-4">
+        <div>© 2026 DHRISHIT SEAL</div>
+      </div>
+
+    </div>
+  </footer>
+  <!-- END: Contact / Let's Talk Footer -->
+
+  <!-- MODAL: Project Detail Modal -->
+  <div id="project-modal" onclick="if(event.target === this) closeProjectModal()" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none flex items-center justify-center p-4">
+    <div id="project-modal-card" class="bg-white rounded-[32px] max-w-2xl w-full max-h-[90vh] overflow-y-auto no-scrollbar p-6 sm:p-8 md:p-9 shadow-2xl border border-neutral-100 opacity-0 scale-[0.94] translate-y-4 relative">
+      <div class="relative text-center pb-4 mb-5 border-b border-neutral-100">
+        <span id="modal-project-category" class="block text-[11px] font-bold tracking-widest uppercase text-neutral-400 mb-1">CATEGORY</span>
+        <h3 id="modal-project-title" class="text-2xl sm:text-3xl font-black uppercase text-neutral-900 tracking-tight">PROJECT TITLE</h3>
+        <button onclick="closeProjectModal()" class="absolute right-0 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full border border-neutral-200 flex items-center justify-center text-neutral-500 hover:border-black hover:text-black hover:bg-neutral-50 transition-colors" aria-label="Close modal">✕</button>
+      </div>
+      <div id="modal-project-body" class="space-y-5 text-sm text-neutral-700">
+        <!-- Injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Contact Form Modal -->
+  <div id="contact-modal" class="fixed inset-0 z-50 bg-black/75 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4">
+    <div id="contact-modal-card" class="bg-white rounded-3xl max-w-lg w-full p-6 md:p-8 shadow-2xl transform scale-95 transition-transform duration-300">
+      <div class="flex justify-between items-center border-b border-neutral-200 pb-4 mb-6">
+        <div>
+          <span class="text-[10px] font-bold tracking-widest uppercase text-neutral-400">START A CONVERSATION</span>
+          <h3 class="text-xl font-black uppercase text-neutral-900">SEND ME A MESSAGE</h3>
+        </div>
+        <button onclick="closeContactModal()" class="w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-neutral-600 hover:border-black hover:text-black">✕</button>
+      </div>
+      
+      <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Your Name</label>
+          <input type="text" id="contact-name" required placeholder="John Doe" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Email Address</label>
+          <input type="email" id="contact-email" required placeholder="john@company.com" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm">
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Reason</label>
+          <select id="contact-service" class="w-full px-4 py-2.5 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm bg-white">
+            <option value="Job opportunity">Job opportunity</option>
+            <option value="Research collaboration">Research collaboration</option>
+            <option value="Project">Project</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-neutral-700 mb-1">Message</label>
+          <textarea id="contact-message" rows="3" required placeholder="What would you like to talk about?" class="w-full px-4 py-2 rounded-xl border border-neutral-300 focus:outline-none focus:border-black text-sm"></textarea>
+        </div>
+        <button type="submit" class="w-full py-3 bg-black text-white rounded-xl text-xs font-bold tracking-widest uppercase hover:bg-neutral-800 transition">
+          OPEN IN EMAIL APP
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT: Comprehensive Interactivity -->
+  <script>
+    // Long-form internship write-ups, opened from the Experience panels
+    const projectsData = {
+      reliance: {
+        category: 'SDE INTERN • RELIANCE INDUSTRIES • OCT 2024 — JAN 2025',
+        title: 'Finding Sticky Valves in Plant Data',
+        description: 'Control valves keep an industrial process steady, and a valve that sticks makes the whole control loop oscillate, which costs efficiency, product quality and reliability. At the Jamnagar manufacturing division I built a Python method to detect this stiction from routine plant signals, and to show the engineers which days it was happening.',
+        stats: 'Controller output and process variable logs sampled every 2 minutes, across about 18 months and 390K samples.',
+        sections: [
+          {
+            heading: 'The problem',
+            text: 'Stiction shows up as stick-slip movement in the valve, which creates oscillations in two signals: the controller output (OP), which is what the controller asks for, and the process variable (PV), which is what the process actually does. Conventional checks based on autocorrelation or spectral analysis struggle to tell these oscillations apart from noise and outside disturbances.'
+          },
+          {
+            heading: 'Preparing the signals',
+            points: [
+              'Checked the logs for gaps, with forward-fill ready to keep the time series continuous.',
+              'Standardised OP and PV to zero mean and unit variance so neither signal dominated.',
+              'Split the data into 24-hour segments, so every result could be read per day.',
+              'Built a differential signal between PV and OP to expose where control action and process response disagree.'
+            ]
+          },
+          {
+            heading: 'Extracting the slow features',
+            points: [
+              'Computed daily cross-correlation between the signals to measure lag, and flagged the top 10% of days as lagged days.',
+              'Used the maximum daily lag to build a lagged data matrix.',
+              'Ran covariance analysis and eigenvalue decomposition on that matrix, and took the eigenvector with the smallest eigenvalue as the slowest feature.'
+            ]
+          },
+          {
+            heading: 'Scoring each day',
+            text: 'The slowest feature went through detrended fluctuation analysis to give a Hurst exponent for each day, which measures long-term persistence in the signal. Days above 0.5 were marked as stiction days, and days above 1.5 were marked as highly dynamic. The final chart plots the daily exponent with those days highlighted, so an engineer can read the valve\'s history at a glance.'
+          },
+          {
+            heading: 'What came out of it',
+            points: [
+              'More robust to noise and outside disturbances than autocorrelation-based methods, validated with numerical simulations.',
+              'Caught both periodic and irregular oscillation behaviour.',
+              'A reusable Python script for the plant to run on its daily data streams.',
+              'Next steps I proposed: add machine learning models, and extend the method to multi-variable systems.'
+            ]
+          }
+        ],
+        tools: ['Python', 'NumPy', 'Pandas', 'DSFA', 'Hurst Exponent', 'Time Series'],
+        link: 'https://drive.google.com/file/d/1vloW7jAe-W6EUpPGPiOAFrepfadoj_2z/view?usp=sharing',
+        linkLabel: 'View Certificate'
+      },
+      nomura: {
+        category: 'SDE INTERN • NOMURA SERVICES INDIA • AUG 2025 — JAN 2026',
+        title: 'Automating Finance Data and Access',
+        description: 'I worked on two internal finance applications: a platform that takes in monthly financial data, and the budgeting application where the company stores, calculates and forecasts its budget. On the first I automated the monthly data load from end to end. On the second I replaced static navigation with database-driven, role-based access.',
+        stats: '150K–200K financial records automated each month • RBAC delivered across 11 roles',
+        sections: [
+          {
+            heading: 'The monthly data load',
+            text: 'Financial data arrived each month in an Excel sheet and split into two streams, OPS and IT. OPS was partly automated, with a person running a SQL script by hand in the middle of the flow. IT was loaded entirely by hand. My job was to remove the manual work from both.'
+          },
+          {
+            heading: 'Finishing the OPS flow',
+            points: [
+              'Turned the manual SQL step into a stored procedure and added it to the Spring Boot job class that runs the rest of the flow.',
+              'Two Autosys jobs now carry the data all the way from the Excel file to the final table.',
+              'Added two dedicated tables so OPS no longer shared an intermediate table with IT. The two streams now meet only in the final table.'
+            ]
+          },
+          {
+            heading: 'Building the IT flow from scratch',
+            points: [
+              'Built a Spring Boot microservice, using Apache POI and Java Streams, that downloads and reads the file.',
+              'Created four intermediate tables and four stored procedures to load the data through staging.',
+              'Tested end to end with Postman on DEV, deployed with Jenkins to the UAT batch server, then tested again there.',
+              'Set up three Autosys jobs to run the load, and picked up a lot of shell scripting working on the batch server.'
+            ]
+          },
+          {
+            heading: 'Protecting older data',
+            text: 'The final and intermediate tables already held data from previous months. I wrote the procedures so that new and updated records for the month go in cleanly, and nothing else gets truncated, changed or deleted.'
+          },
+          {
+            heading: 'Emails instead of log hunting',
+            text: 'I integrated email for both streams. If a procedure fails, the team gets an email with an error log attached, so nobody has to open the server to look for it. If the jobs succeed, the email carries an Excel sheet detailing any anomalies in the load.'
+          },
+          {
+            heading: 'Role-based access for the budgeting application',
+            points: [
+              'Page URLs came from a static JSON file. I moved them into two new database tables, so the menu is now driven by data.',
+              'Changed the Spring Boot backend to identify the user by employee ID and fetch their access level from the company\'s internal access systems.',
+              'Matched the URLs a user may read or write against the full list in the database, and granted only the overlap. A user with 5 permitted URLs out of 20 sees those 5.',
+              'Implemented and tested all 11 roles across DEV and UAT, with JUnit and Mockito test coverage.'
+            ]
+          },
+          {
+            heading: 'How the team worked',
+            text: 'We ran Agile with daily scrums and JIRA tracking. My pull requests in GitLab went through detailed reviews and follow-up questions from lead developers, and I documented all of my work on Confluence.'
+          }
+        ],
+        tools: ['Java', 'Spring Boot', 'SQL', 'Apache POI', 'Jenkins', 'Autosys', 'GitLab', 'JUnit', 'Mockito', 'Postman', 'Shell'],
+        link: 'https://drive.google.com/file/d/1vpBrfY5c-H7POurO1ff2_bK8Hi77itBU/view?usp=sharing',
+        linkLabel: 'View Certificate'
+      }
+    };
+
+    // Services Accordion Logic
+    function toggleService(index) {
+      const items = document.querySelectorAll('.accordion-item');
+      items.forEach((item, i) => {
+        const badge = item.querySelector('.item-badge');
+        const title = item.querySelector('.item-title');
+        const icon = item.querySelector('.item-icon');
+        const iconSvg = icon.querySelector('svg');
+
+        if (i === index) {
+          const isActive = item.classList.contains('active');
+          if (isActive && items.length > 1) {
+            // Optional: toggle off or keep active
+          } else {
+            item.classList.add('active', 'bg-black', 'text-white', 'shadow-xl', 'scale-[1.01]');
+            item.classList.remove('bg-white', 'text-neutral-800', 'border-neutral-300');
+            badge.className = 'item-badge w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center text-xs font-medium text-neutral-300';
+            title.className = 'item-title text-xs md:text-sm font-bold tracking-widest uppercase text-white';
+            icon.className = 'item-icon w-8 h-8 rounded-full border border-neutral-700 flex items-center justify-center transition-transform rotate-180';
+            iconSvg.className = 'w-3.5 h-3.5 text-white';
+          }
+        } else {
+          item.classList.remove('active', 'bg-black', 'text-white', 'shadow-xl', 'scale-[1.01]');
+          item.classList.add('bg-white', 'text-neutral-800', 'border-neutral-300');
+          badge.className = 'item-badge w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center text-xs font-medium text-neutral-700';
+          title.className = 'item-title text-xs md:text-sm font-bold tracking-widest uppercase text-neutral-800';
+          icon.className = 'item-icon w-8 h-8 rounded-full border border-neutral-300 flex items-center justify-center transition-transform rotate-0';
+          iconSvg.className = 'w-3.5 h-3.5 text-neutral-700';
+        }
+      });
+    }
+
+    function selectService(index) {
+      const items = document.querySelectorAll('.accordion-item');
+      if (items && items[index]) {
+        toggleService(index);
+      }
+    }
+
+    // Modal Handlers
+    function openProjectModal(itemOrKey) {
+      let data = null;
+      if (typeof itemOrKey === 'object' && itemOrKey !== null) {
+        data = itemOrKey;
+      } else {
+        data = projectsData[itemOrKey];
+      }
+      if (!data) return;
+
+      const category = data.subtitle || data.category || 'FEATURED PROJECT';
+      const title = data.title || 'PROJECT DETAILS';
+      document.getElementById('modal-project-category').innerText = category;
+      document.getElementById('modal-project-title').innerText = title;
+      
+      let html = '';
+      if (data.src) {
+        html += `
+          <div class="w-full h-52 sm:h-64 rounded-2xl overflow-hidden border border-neutral-200/80 bg-neutral-100 shadow-inner">
+            <img src="${data.src}" alt="${data.alt || title}" class="w-full h-full object-cover object-top" />
+          </div>
+        `;
+      }
+      if (data.description) {
+        html += `<p class="text-neutral-600 leading-relaxed font-normal text-sm sm:text-base text-center max-w-xl mx-auto">${data.description}</p>`;
+      }
+      if (data.stats) {
+        html += `
+          <div class="bg-neutral-50 p-4 rounded-2xl border border-neutral-200 text-center">
+            <p class="text-[11px] font-bold uppercase tracking-wider text-neutral-500 mb-1">Key Highlights</p>
+            <p class="text-xs text-neutral-800 font-medium">${data.stats}</p>
+          </div>
+        `;
+      }
+      if (data.sections && data.sections.length) {
+        html += data.sections.map(sec => `
+          <div class="text-left border-t border-neutral-100 pt-4">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-black mb-2">${sec.heading}</h4>
+            ${sec.text ? `<p class="text-sm text-neutral-600 leading-relaxed">${sec.text}</p>` : ''}
+            ${sec.points ? `<ul class="list-disc pl-5 space-y-1.5 text-sm text-neutral-600 leading-relaxed">${sec.points.map(p => `<li>${p}</li>`).join('')}</ul>` : ''}
+          </div>
+        `).join('');
+      }
+      if (data.deliverables && data.deliverables.length) {
+        html += `
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-black mb-2 text-center">Key Deliverables</h4>
+            <ul class="list-disc pl-5 space-y-1 text-xs text-neutral-600 max-w-md mx-auto">
+              ${data.deliverables.map(d => `<li>${d}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+      if (data.tools && data.tools.length) {
+        html += `
+          <div>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-black mb-2 text-center">Technologies & Stack</h4>
+            <div class="flex flex-wrap justify-center gap-2">
+              ${data.tools.map(t => `<span class="px-3 py-1 bg-neutral-100 border border-neutral-200 text-neutral-800 text-[10px] font-semibold rounded-full uppercase">${t}</span>`).join('')}
+            </div>
+          </div>
+        `;
+      }
+      if (data.link) {
+        html += `
+          <div class="pt-2 flex justify-center items-center">
+            <a href="${data.link}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-neutral-800 transition-all shadow-md hover:shadow-xl hover:scale-105 active:scale-95">
+              ${data.linkLabel || 'Visit Live Website'} ↗
+            </a>
+            ${data.repo ? `<a href="${data.repo}" target="_blank" rel="noopener noreferrer" class="ml-3 text-xs font-bold uppercase tracking-wider underline hover:text-neutral-500">Source ↗</a>` : ''}
+          </div>
+        `;
+      }
+
+      document.getElementById('modal-project-body').innerHTML = html;
+
+      const modal = document.getElementById('project-modal');
+      const card = document.getElementById('project-modal-card');
+      if (!modal || !card) return;
+
+      modal.classList.remove('pointer-events-none');
+      void modal.offsetWidth; // Force reflow so transition starts cleanly
+      requestAnimationFrame(() => {
+        modal.classList.remove('opacity-0');
+        card.classList.remove('opacity-0', 'scale-[0.94]', 'translate-y-4');
+        card.classList.add('opacity-100', 'scale-100', 'translate-y-0');
+      });
+    }
+    window.openProjectModal = openProjectModal;
+
+    function closeProjectModal() {
+      const modal = document.getElementById('project-modal');
+      const card = document.getElementById('project-modal-card');
+      if (!modal || !card) return;
+
+      modal.classList.add('opacity-0');
+      card.classList.remove('opacity-100', 'scale-100', 'translate-y-0');
+      card.classList.add('opacity-0', 'scale-[0.94]', 'translate-y-4');
+      setTimeout(() => {
+        if (modal.classList.contains('opacity-0')) {
+          modal.classList.add('pointer-events-none');
+        }
+      }, 400);
+    }
+
+    function openContactModal() {
+      const modal = document.getElementById('contact-modal');
+      const card = document.getElementById('contact-modal-card');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-95');
+      card.classList.add('scale-100');
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contact-modal');
+      const card = document.getElementById('contact-modal-card');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+      card.classList.remove('scale-100');
+      card.classList.add('scale-95');
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('project-modal');
+        if (modal && !modal.classList.contains('pointer-events-none')) {
+          closeProjectModal();
+        }
+      }
+    });
+
+    function submitContactForm(e) {
+      e.preventDefault();
+      const name = document.getElementById('contact-name').value;
+      const email = document.getElementById('contact-email').value;
+      const reason = document.getElementById('contact-service').value;
+      const message = document.getElementById('contact-message').value;
+      // shortcut: mailto needs the visitor's email app, swap for a form service if that loses messages
+      const subject = encodeURIComponent(`${reason} — ${name}`);
+      const body = encodeURIComponent(`${message}\n\n${name}\n${email}`);
+      window.location.href = `mailto:sealdhrishit@gmail.com?subject=${subject}&body=${body}`;
+      closeContactModal();
+      document.getElementById('contact-form').reset();
+    }
+
+    function toggleMobileMenu() {
+      const drawer = document.getElementById('mobile-drawer');
+      const content = document.getElementById('mobile-drawer-content');
+      const isOpen = !drawer.classList.contains('pointer-events-none');
+
+      if (isOpen) {
+        drawer.classList.add('opacity-0', 'pointer-events-none');
+        content.classList.add('translate-x-full');
+      } else {
+        drawer.classList.remove('opacity-0', 'pointer-events-none');
+        content.classList.remove('translate-x-full');
+      }
+    }
+
+    // Toast notification helper
+    function showToast(message) {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      toast.className = 'bg-black text-white px-5 py-3 rounded-full text-xs font-semibold shadow-2xl flex items-center gap-2 transform translate-y-4 opacity-0 transition-all duration-300 pointer-events-auto border border-neutral-700';
+      toast.innerHTML = `<span>●</span><span>${message}</span>`;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-4', 'opacity-0');
+      }, 10);
+
+      setTimeout(() => {
+        toast.classList.add('translate-y-4', 'opacity-0');
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+
+
+    // Initialize application
+    function initApp() {
+
+      const sections = document.querySelectorAll('section[id], main[id]');
+      const navLinks = {
+        'home': document.getElementById('nav-home'),
+        'about': document.getElementById('nav-about'),
+        'experience': document.getElementById('nav-experience'),
+        'projects': document.getElementById('nav-projects'),
+        'research': document.getElementById('nav-research'),
+        'skills': document.getElementById('nav-skills')
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            Object.keys(navLinks).forEach(k => {
+              if (navLinks[k]) {
+                if (k === id) {
+                  navLinks[k].classList.add('border-neutral-300', 'text-black');
+                  navLinks[k].classList.remove('border-transparent', 'text-neutral-600');
+                } else {
+                  navLinks[k].classList.remove('border-neutral-300', 'text-black');
+                  navLinks[k].classList.add('border-transparent', 'text-neutral-600');
+                }
+              }
+            });
+          }
+        });
+      }, { rootMargin: '-20% 0px -60% 0px' });
+
+      sections.forEach(s => observer.observe(s));
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initApp);
+    } else {
+      initApp();
+    }
+  </script>
+
+  <!-- FlexCarousel Initialization (React Bits Component Engine) -->
+  <script type="module">
+    import { initFlexCarousel, DEFAULT_ITEMS } from './flex-carousel.js';
+
+    function startCarousel() {
+      const container = document.getElementById('flex-carousel-container');
+      if (container) {
+        window.flexCarouselInstance = initFlexCarousel(container, {
+          items: DEFAULT_ITEMS,
+          preset: 'liquid',
+          intro: 'rise',
+          cardHeight: 0.5,
+          gap: 12,
+          squeeze: 0.2,
+          focusOnClick: true,
+          captions: true,
+          onSelect: (index, item) => {
+            if (window.openProjectModal) {
+              window.openProjectModal(item);
+            }
+          }
+        });
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startCarousel);
+    } else {
+      startCarousel();
+    }
+  </script>
+
+  <!-- WorksWheel 3D Drum Reel Initialization -->
+  <script type="module">
+    import { initWorksWheel, DEFAULT_WORKS } from './works-wheel.js';
+
+    function startWorksWheel() {
+      const container = document.getElementById('works-wheel-container');
+      if (container) {
+        const wheelInstance = initWorksWheel(container, {
+          items: DEFAULT_WORKS,
+          label: "Research",
+          action: "View",
+          onSelect: (index, item) => {
+            if (window.openProjectModal) {
+              window.openProjectModal(item);
+            }
+          }
+        });
+        window.worksWheelInstance = wheelInstance;
+
+        const prevBtn = document.getElementById('works-wheel-prev-btn');
+        const nextBtn = document.getElementById('works-wheel-next-btn');
+        if (prevBtn) prevBtn.addEventListener('click', () => wheelInstance.prev());
+        if (nextBtn) nextBtn.addEventListener('click', () => wheelInstance.next());
+      }
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startWorksWheel);
+    } else {
+      startWorksWheel();
+    }
+  </script>
+  <script type="module" src="./scroll-expand-media.js"></script>
+  <script type="module" src="./experience-section.js"></script>
+  <script type="module" src="./motion.js"></script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "dhrishit-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Portfolio of Dhrishit Seal",
+  "type": "module",
+  "scripts": {
+    "dev": "python3 -m http.server 8080",
+    "start": "python3 -m http.server 8080"
+  },
+  "dependencies": {
+    "@fiddle-digital/string-tune": "^1.2.0"
+  }
+}

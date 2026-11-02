@@ -1,0 +1,30 @@
+node_modules/
+.DS_Store
+
+# Private source material
+my_files/
+
+# Unused template leftovers
+extracted/
+extracted_zip/
+stitch_monochrome_editorial_developer_portfolio/
+scratch_box.png
+Project Images/
+Landing Page Assest/
+FlexCarousel.tsx
+ScrollExpandMedia.tsx
+.playwright-mcp/
+
+# Not needed on the live site
+.vscode/
+.agents/
+assets/about_bg.jpg
+assets/about_bg.png
+assets/about_editorial_art.jpg
+assets/about_floating_light.png
+assets/about_floating_light_hq.png
+assets/about_media.jpg
+assets/about_paper_back.png
+assets/about_paper_page.png
+assets/solar_app_bg.png
+assets/string-tune.js
